@@ -9,6 +9,7 @@ class ProfileItem(models.Model):
     contact_info = models.CharField(max_length=255)
     education = models.TextField(blank=True, null=True)
     experience = models.TextField(blank=True, null=True)
+    is_favorite = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
