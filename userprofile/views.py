@@ -8,6 +8,7 @@ from .serializers import ProfileItemSerializer, UserSerializer
 #PAGINATION AND FILTERING
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.pagination import PageNumberPagination
 
 class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -19,6 +20,7 @@ class ProfileItemListCreateView(generics.ListCreateAPIView):
     queryset = ProfileItem.objects.all()
     serializer_class = ProfileItemSerializer
     permission_classes = [permissions.IsAuthenticated]
+    pagination_class = PageNumberPagination
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ['name', 'skills']
     search_fields = ['name', 'bio', 'skills', 'contact_info', 'education', 'experience']
