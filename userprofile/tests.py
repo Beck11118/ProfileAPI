@@ -26,7 +26,7 @@ class ProfileItemAPITests(TestCase):
         invalid_data = {
             'name': 'Jane Doe',
             'bio': 'Another developer.',
-            'skills': 'otab, hello:2',  # Invalid format with semicolons
+            'skills': 'Python;Django;JavaScript',  # Invalid format with semicolons
             'contact_info': 'jane@example.com',
         }
         response = self.client.post(self.url, invalid_data, format='json')

@@ -1,0 +1,41 @@
+venv/
+
+# Byte-compiled / optimized Python files
+__pycache__/
+*.py[cod]
+*.pyc
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python-eggs/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Django stuff
+*.log
+db.sqlite3
+local_settings.py
+
+# Media files
+media/
+
+# Static files collected by Django
+static_collected/
+
+# IDE and text editor files
+.vscode/
+.idea/
+.DS_Store
