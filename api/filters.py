@@ -1,5 +1,5 @@
 import django_filters
-from .models import ProfileItem
+from userprofile.models import ProfileItem
 
 class ProfileItemFilter(django_filters.FilterSet):
     o = django_filters.OrderingFilter(
