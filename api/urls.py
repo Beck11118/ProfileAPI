@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import UserCreateView, ProfileItemListCreateView, ProfileItemDetailView, ProfileItemFavoriteView
+from .views import UserCreateView, ProfileItemListCreateView, ProfileItemDetailView, ProfileItemFavoriteView, EducationListCreateView, EducationDetailView
 
 app_name = 'api'
 urlpatterns = [
@@ -7,4 +7,8 @@ urlpatterns = [
     path('profileitems/', ProfileItemListCreateView.as_view(), name='profileitem-list'),
     path('profileitems/<int:pk>/', ProfileItemDetailView.as_view(), name='profileitem-detail'),
     path('profileitems/<int:pk>/favorite/', ProfileItemFavoriteView.as_view(), name='profileitem-favorite'),
+
+    #Education
+    path('educations/', EducationListCreateView.as_view(), name='education-list'),
+    path('educations/<int:pk>/', EducationDetailView.as_view(), name='education-detail'),
 ]

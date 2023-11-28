@@ -2,9 +2,10 @@ from django.shortcuts import render
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from userprofile.models import ProfileItem
-from .serializers import ProfileItemSerializer, UserSerializer
+from userprofile.models import ProfileItem, Education
+from .serializers import ProfileItemSerializer, UserSerializer, EducationSerializer
 from .filters import ProfileItemFilter
+from .permissions import IsOwnerOrReadOnly
 
 #PAGINATION AND FILTERING
 from django_filters.rest_framework import DjangoFilterBackend
@@ -20,7 +21,7 @@ class UserCreateView(generics.CreateAPIView):
 class ProfileItemListCreateView(generics.ListCreateAPIView):
     queryset = ProfileItem.objects.all()
     serializer_class = ProfileItemSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsOwnerOrReadOnly]
     pagination_class = LimitOffsetPagination
     # filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     # filterset_fields = ['name', 'skills']
@@ -50,6 +51,23 @@ class ProfileItemFavoriteView(generics.UpdateAPIView):
         profile.save()
         serializer = self.get_serializer(profile)
         return Response(serializer.data, status = status.HTTP_200_OK)
+    
+
+#EDUCATION
+class EducationListCreateView(generics.ListCreateAPIView):
+    queryset = Education.objects.all()
+    serializer_class = EducationSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(owner = self.request.user)
+        return super().perform_create(serializer)
+
+class EducationDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Education.objects.all()
+    serializer_class = EducationSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+
 
 
 
