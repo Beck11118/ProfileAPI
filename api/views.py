@@ -59,10 +59,6 @@ class EducationListCreateView(generics.ListCreateAPIView):
     serializer_class = EducationSerializer
     permission_classes = [IsOwnerOrReadOnly]
 
-    def perform_create(self, serializer):
-        serializer.save(owner = self.request.user)
-        return super().perform_create(serializer)
-
 class EducationDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Education.objects.all()
     serializer_class = EducationSerializer

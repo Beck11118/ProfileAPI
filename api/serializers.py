@@ -14,8 +14,18 @@ class EducationSerializer(serializers.ModelSerializer):
         end_date = data.get('end_date')
 
         if start_date and end_date and start_date > end_date:
-            return serializers.ValidationError('End date must be after start date')
+            raise serializers.ValidationError('End date must be after start date')
         return data
+    
+    def validate_study(self, value):
+        if not value.strip():
+            raise serializers.ValidationError("Study field cannot be empty.")
+        return value
+
+    def validate_institution_name(self, value):
+        if not value.strip():
+            raise serializers.ValidationError("Institution name field cannot be empty.")
+        return value
 
 class ProfileItemSerializer(serializers.ModelSerializer):
     class Meta:
