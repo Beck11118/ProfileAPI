@@ -1,7 +1,13 @@
 from rest_framework import serializers
 
-from userprofile.models import ProfileItem, Education
+from userprofile.models import ProfileItem, Education, Skill
 from django.contrib.auth.models import User
+
+def limit_profile_item_queryset(serializer, user):
+    # Limit the queryset for profile_item to the ones owned by the authenticated user
+    serializer.fields['profile_item'].queryset = ProfileItem.objects.filter(owner=user)
+
+    
 
 
 class EducationSerializer(serializers.ModelSerializer):
@@ -26,11 +32,29 @@ class EducationSerializer(serializers.ModelSerializer):
         if not value.strip():
             raise serializers.ValidationError("Institution name field cannot be empty.")
         return value
+    
+    def __init__(self, *args, **kwargs):
+        user = kwargs['context']['request'].user
+        super(SkillSerializer, self).__init__(*args, **kwargs)
+
+        limit_profile_item_queryset(self, user )
+
+class SkillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Skill
+        fields = "__all__"
+        
+    
+    def __init__(self, *args, **kwargs):
+        user = kwargs['context']['request'].user
+        super(SkillSerializer, self).__init__(*args, **kwargs)
+        limit_profile_item_queryset(self, user)
 
 class ProfileItemSerializer(serializers.ModelSerializer):
+    # educations = EducationSerializer(many=True, read_only=True)
     class Meta:
         model = ProfileItem
-        fields = "__all__"
+        exclude = ['owner']
 
     
 class UserSerializer(serializers.ModelSerializer):

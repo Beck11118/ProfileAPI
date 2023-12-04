@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from userprofile.models import ProfileItem, Education
-from .serializers import ProfileItemSerializer, UserSerializer, EducationSerializer
+from userprofile.models import ProfileItem, Education, Skill
+from .serializers import ProfileItemSerializer, UserSerializer, EducationSerializer, SkillSerializer
 from .filters import ProfileItemFilter
 from .permissions import IsOwnerOrReadOnly
 
@@ -11,6 +11,8 @@ from .permissions import IsOwnerOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
+
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -57,12 +59,26 @@ class ProfileItemFavoriteView(generics.UpdateAPIView):
 class EducationListCreateView(generics.ListCreateAPIView):
     queryset = Education.objects.all()
     serializer_class = EducationSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
 
 class EducationDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Education.objects.all()
     serializer_class = EducationSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
+
+
+#SKILL
+class SkillListCreateView(generics.ListCreateAPIView):
+    queryset = Skill.objects.all()
+    serializer_class = SkillSerializer
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
+
+class SkillDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Skill.objects.all()
+    serializer_class = SkillSerializer
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
+
+
 
 
 
