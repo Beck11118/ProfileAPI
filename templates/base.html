@@ -214,7 +214,7 @@
             <i class="las la-envelope"></i> Hire Me!
         </a>
     </div>
-
+    {% block content %}
     <main class="drake-main">
         <div id="smooth-wrapper">
             <div id="smooth-content">
@@ -820,6 +820,7 @@
             </div>
         </div>
     </main>
+    {% endblock content %}
     
 
     <script src="{% static 'js/jquery.js' %}"></script>
@@ -833,6 +834,11 @@
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/ajax-form.js' %}"></script>
     <script src="{% static 'js/color.js' %}"></script>
+    
+    <!-- Addition Scripts -->
+    {% block scripts %}
+
+    {% endblock scripts %}
 
 </body>
 </html>

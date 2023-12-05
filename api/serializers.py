@@ -35,7 +35,7 @@ class EducationSerializer(serializers.ModelSerializer):
     
     def __init__(self, *args, **kwargs):
         user = kwargs['context']['request'].user
-        super(SkillSerializer, self).__init__(*args, **kwargs)
+        super(EducationSerializer, self).__init__(*args, **kwargs)
 
         limit_profile_item_queryset(self, user )
 

@@ -23,7 +23,7 @@ class UserCreateView(generics.CreateAPIView):
 class ProfileItemListCreateView(generics.ListCreateAPIView):
     queryset = ProfileItem.objects.all()
     serializer_class = ProfileItemSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
     pagination_class = LimitOffsetPagination
     # filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     # filterset_fields = ['name', 'skills']
