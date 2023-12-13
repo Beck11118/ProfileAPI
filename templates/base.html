@@ -23,6 +23,11 @@
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    
+    <!-- VueJS 3 CDN-->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.11/vue.cjs.js" integrity="sha512-uJSRYSBzKmCaA8Y4fKzhSIuwqub9VA5dIHZeFFnSPPHYY9xMKCTeCB688NatAGTH33h/qC9JSMF8ttl/aFzGKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 </head>
 <body class="home3-page">
@@ -825,20 +830,24 @@
 
     <script src="{% static 'js/jquery.js' %}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    
     <script src="{% static 'js/owl.carousel.js' %}"></script>
     <script src="{% static 'js/gsap.min.js' %}"></script>
     <script src="{% static 'js/ScrollTrigger.min.js' %}"></script>
     <script src="{% static 'js/ScrollToPlugin.min.js' %}"></script>
     <script src="{% static 'js/lightbox.min.js' %}"></script>
     
-    <script src="{% static 'js/main.js' %}"></script>
-    <script src="{% static 'js/ajax-form.js' %}"></script>
-    <script src="{% static 'js/color.js' %}"></script>
-    
     <!-- Addition Scripts -->
     {% block scripts %}
 
     {% endblock scripts %}
+
+    
+   
+    
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/ajax-form.js' %}"></script>
+    <script src="{% static 'js/color.js' %}"></script>
 
 </body>
 </html>
