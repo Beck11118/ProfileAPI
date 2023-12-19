@@ -13,7 +13,7 @@
                         <img src="{% static 'images/logo.png' %}" alt="Logo">
                         <span class="designation">Framer Designer &amp; Developer</span>
                     </div>
-                    <img class="me" src="{% static 'images/me.jpg' %}" alt="Me">
+                    <img class="me" :src="portfolioItem.pic" alt="Me">
                     <h2 class="email">hello@drake.design</h2>
                     <h2 class="address">Base in Los Angeles, CA</h2>
                     <p class="copyright">© 2022 Drake. All Rights Reserved</p>
@@ -46,7 +46,7 @@
                                 </h4>
                                 <h1 class="scroll-animation" data-animation="fade_from_bottom">Say Hi from <span>Drake</span>, Framer Designer and Developer</h1>
                             </div>
-                            <p class="scroll-animation" data-animation="fade_from_bottom">I design and code beautifully simple things and i love what i do. Just simple like that!</p>
+                            <p class="scroll-animation" data-animation="fade_from_bottom">[[ portfolioItem.short_bio ]]</p>
                             <a href="#portfolio" class="go-to-project-btn scroll-to scroll-animation" data-animation="rotate_up">
                                 <img src="{% static 'images/round-text.png' %}" alt="">
                                 <i class="las la-arrow-down"></i>
@@ -73,14 +73,9 @@
                                 <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
                                     <i class="lar la-user"></i> About
                                 </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">Every great design begin with<br>
-                                    an even <span>better story</span></h1>
+                                <h1 class="scroll-animation" data-animation="fade_from_bottom" v-html="portfolioItem.main_quote"></h1>
                             </div>
-                            <p class="scroll-animation" data-animation="fade_from_bottom">Since beginning my journey as a freelance designer nearly 8 years ago, 
-                                I've done remote work for agencies, consulted for startups, and collaborated with 
-                                talented people to create digital products for both business and consumer use. 
-                                I'm quietly confident, naturally curious, and perpetually working on improving my 
-                                chopsone design problem at a time.</p>
+                            <p class="scroll-animation" data-animation="fade_from_bottom">[[ portfolioItem.bio ]]</p>
                         </div>
                     </div>
                 </section>
@@ -170,7 +165,7 @@
                                 <h1 class="scroll-animation" data-animation="fade_from_bottom">My <span>Advantages</span></h1>
                             </div>
                             <div class="row skills text-center">
-                                <div v-for="skill in skillsList.results" :key="skill.id" class="col-md-3 scroll-animation" data-animation="fade_from_left">
+                                <div v-for="skill in skillsList" :key="skill.id" class="col-md-3 scroll-animation" data-animation="fade_from_left">
                                     <div class="skill">
                                         <div class="skill-inner">
                                             <img src="{% static 'images/figma.png' %}" :alt="skill.name">
@@ -569,33 +564,5 @@
 
 {% block scripts %}
 <script src="{% static 'js/ajax-form.js' %}"></script>
-<script>
-    let app = Vue.createApp({
-        delimiters: ["[[", "]]"],
-        data() {
-            return {
-                skillsList: []
-            }
-        },
-        mounted() {
-            console.log('error')
-            
-            // Make a fetch request
-            fetch('/api/skills/')
-                .then(response => response.json())
-                .then(data => {
-                    this.skillsList = data
-                console.log('data: ', data);
-                console.log('this skill list: ', this.skillsList)
-                })
-                .catch(error => {
-                console.error('Error fetching data:', error);
-                this.message = 'Error fetching data';
-                });
-        },
-        methods: {
-        }    
-    });
-    app.mount('#skills');
-</script>
+<script src="{% static 'js/portfolio/index.js' %}"> </script>
 {% endblock scripts %}

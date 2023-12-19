@@ -50,6 +50,36 @@ class Skill(models.Model):
 
     def __str__(self):
         return self.name
+
+class Project(models.Model):
+    profile_item = models.ForeignKey(ProfileItem, on_delete = models.CASCADE, related_name = 'projects')
+
+    title = models.CharField(max_length = 200)
+    tag = models.CharField(max_length = 255)
+    pic = ResizedImageField(upload_to = 'project', default='project/project_default.png')
+    description = models.TextField()
+    link = models.CharField(max_length = 250)
+    started_at = models.DateField(blank=True, null=True)
+    completed_at = models.DateField(blank=True, null=True)
+
+    created_at = models.DateField(auto_now_add = True)
+    updated_at = models.DateField(auto_now = True)
+
+
+class Testimonial(models.Model):
+    profile_item = models.ForeignKey(ProfileItem, on_delete = models.CASCADE, related_name = 'testimonials')
+
+    client = models.CharField(max_length= 150)
+    client_role = models.CharField(max_length = 150)
+    client_pic = ResizedImageField(upload_to = 'testimonials', default='testimonial/testimonial_default.png')
+    company_name = models.CharField(max_length = 150)
+    text = models.TextField()
+    project = models.ForeignKey(Project, on_delete = models.CASCADE, related_name = 'project_testimonials')
+    star = models.PositiveSmallIntegerField(validators = [MaxValueValidator(5)] )
+
+    created_at = models.DateField(auto_now_add = True)
+    updated_at = models.DateField(auto_now = True)
+
+    def __str__(self):
+        return f'{self.text[:50]} by {self.client}'
     
-
-
