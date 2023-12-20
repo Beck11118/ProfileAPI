@@ -6,22 +6,20 @@ let app = Vue.createApp({
             testimonialList: [],
             projectList: [],
             educationList: [],
+            serviceList:[],
             portfolioItem: {},
         }
     },
     mounted() {
-        console.log('error')
         this.fetchSkills()
         this.fetchPortfolio()
         this.fetchProject()
         this.fetchTestimonial()
         this.fetchEducation()
-        // Make a fetch request
-
-        
-        
+        this.fetchService()        
     },
     methods: {
+
         fetchSkills(){
             fetch('/api/skills/')
             .then(response => response.json())
@@ -35,6 +33,7 @@ let app = Vue.createApp({
             });
         },
 
+
         fetchPortfolio(){
             fetch('/api/profileitems/')
             .then(response => response.json())
@@ -47,6 +46,7 @@ let app = Vue.createApp({
             this.message = 'Error fetching data';
             });
         },
+
 
         fetchEducation(){
             fetch('/api/educations/')
@@ -68,9 +68,6 @@ let app = Vue.createApp({
                 month: "short",
                 day: "numeric"
             };
-            console.log(
-                date.toLocaleDateString("en", options)
-            );
             const cur = date.toLocaleDateString( "en", options,  )
             return cur
         },
@@ -115,7 +112,6 @@ let app = Vue.createApp({
             this.message = 'Error fetching data';
             });
         },
-
         // Counter for Testimonials
         counter(event) {
             var element = event.target; // DOM element, in this example .owl-carousel
@@ -150,6 +146,20 @@ let app = Vue.createApp({
             return tagString.split(',').map(tag => tag.trim());
         },
 
+
+        // Service Fetch
+        fetchService(){
+            fetch('/api/services/')
+            .then(response => response.json())
+            .then(data => {
+                this.serviceList = data.results
+            console.log('this service list: ', this.serviceList)
+            })
+            .catch(error => {
+            console.error('Error fetching data:', error);
+            this.message = 'Error fetching data';
+            });
+        },
     }    
 });
 app.mount('#index');
