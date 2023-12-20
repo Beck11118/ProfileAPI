@@ -74,7 +74,7 @@ class Testimonial(models.Model):
 
     client = models.CharField(max_length= 150)
     client_role = models.CharField(max_length = 150)
-    client_pic = ResizedImageField(upload_to = 'testimonials', default='testimonial/testimonial_default.png')
+    client_pic = ResizedImageField(upload_to = 'testimonial', default='testimonial/testimonial_default.png')
     company_name = models.CharField(max_length = 150)
     text = models.TextField()
     project = models.ForeignKey(Project, on_delete = models.CASCADE, related_name = 'project_testimonials')
@@ -85,4 +85,18 @@ class Testimonial(models.Model):
 
     def __str__(self):
         return f'{self.text[:50]} by {self.client}'
+    
+
+class Service(models.Model):
+    profile_item = models.ForeignKey(ProfileItem, on_delete = models.CASCADE, related_name = 'services')
+
+    title = models.CharField(max_length=200)
+    short_desc = models.TextField()
+    desc = models.TextField(blank=True, null=True)
+    icon = models.CharField(max_length=200)
+    pic = ResizedImageField(upload_to='service', default='service/service_default.png')
+    completed_projects = models.PositiveIntegerField()
+
+    def __str__(self):
+        return self.title
     

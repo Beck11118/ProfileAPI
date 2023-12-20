@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from userprofile.models import ProfileItem, Education, Skill, Testimonial, Project
+from userprofile.models import ProfileItem, Education, Skill, Testimonial, Project, Service
 from django.contrib.auth.models import User
 
 class BaseProfileItemSerializer(serializers.ModelSerializer):
@@ -71,6 +71,11 @@ class ProjectSerializer(BaseProfileItemSerializer):
 class TestimonialSerializer(BaseProfileItemSerializer):
     class Meta:
         model = Testimonial
+        fields = "__all__"
+
+class ServiceSerializer(BaseProfileItemSerializer):
+    class Meta:
+        model = Service
         fields = "__all__"
 
 

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import UserCreateView, ProfileItemListCreateView, ProfileItemDetailView, ProfileItemFavoriteView, EducationListCreateView, EducationDetailView, SkillListCreateView, SkillDetailView, ProjectListCreateView, ProjectDetailView, TestimonialListCreateView, TestimonialDetailView
+from .views import UserCreateView, ProfileItemListCreateView, ProfileItemDetailView, ProfileItemFavoriteView, EducationListCreateView, EducationDetailView, SkillListCreateView, SkillDetailView, ProjectListCreateView, ProjectDetailView, TestimonialListCreateView, TestimonialDetailView, ServiceListCreateView, ServiceDetailView
 
 app_name = 'api'
 urlpatterns = [
@@ -25,4 +25,8 @@ urlpatterns = [
     #Testimonial
     path('testimonials/', TestimonialListCreateView.as_view(), name='testimonial-list'),
     path('testimonials/<int:pk>/', TestimonialDetailView.as_view(), name='testimonial-detail'),
+
+    #Service
+    path('services/', ServiceListCreateView.as_view(), name='service-list'),
+    path('services/<int:pk>/', ServiceDetailView.as_view(), name='service-detail'),
 ]

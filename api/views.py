@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from userprofile.models import ProfileItem, Education, Skill, Project, Testimonial
-from .serializers import ProfileItemSerializer, UserSerializer, EducationSerializer, SkillSerializer, ProjectSerializer, TestimonialSerializer
+from userprofile.models import ProfileItem, Education, Skill, Project, Testimonial, Service
+from .serializers import ProfileItemSerializer, UserSerializer, EducationSerializer, SkillSerializer, ProjectSerializer, TestimonialSerializer, ServiceSerializer
 from .filters import ProfileItemFilter
 from .permissions import IsOwnerOrReadOnly
 
@@ -90,6 +90,7 @@ class ProjectDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProjectSerializer
     permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
 
+
 #TESTIMONIAL
 class TestimonialListCreateView(generics.ListCreateAPIView):
     queryset = Testimonial.objects.all()
@@ -101,6 +102,17 @@ class TestimonialDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TestimonialSerializer
     permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
 
+
+#SERVICE
+class ServiceListCreateView(generics.ListCreateAPIView):
+    queryset = Service.objects.all()
+    serializer_class = ServiceSerializer
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
+
+class ServiceDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Service.objects.all()
+    serializer_class = ServiceSerializer
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
 
 
 
