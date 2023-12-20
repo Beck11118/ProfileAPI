@@ -92,26 +92,10 @@
                             </div>
         
                             <div class="resume-timeline">
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">2020 - Present</span>
-                                    <h2>Framer Desinger &amp; Developer</h2>
-                                    <p>Brunodee Agency</p>
-                                    <h2>Front-End WordPress Developer</h2>
-                                    <p>Envato Market</p>
-                                </div>
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">2013 - 2019</span>
-                                    <h2>Webflow Developer &amp; Co-Founder</h2>
-                                    <p>Designflow Studio</p>
-                                    <h2>Web Designer</h2>
-                                    <p>Freelance</p>
-                                    <h2>Leader Team of Marketing</h2>
-                                    <p>AHA Marketing Agency</p>
-                                </div>
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">2010 - 2013</span>
-                                    <h2>Bachelor Degree of Information Technology</h2>
-                                    <p>US RMIT University</p>
+                                <div v-for="education in educationList" class="item scroll-animation" data-animation="fade_from_right">
+                                    <span class="date">[[ dateFormat( education.start_date ) ]] - [[ dateFormat( education.end_date ) ]]</span>
+                                    <h2>[[ education.study ]]</h2>
+                                    <p>[[ education.institution_name ]]</p>
                                 </div>
                             </div>
         
@@ -193,107 +177,23 @@
                             </div>
         
                             <div class="row portfolio-items">
-                                <div class="col-md-12 scroll-animation" data-animation="fade_from_bottom">
+                                <div v-for="project in projectList" :key="project.id" class="col-md-12 scroll-animation" data-animation="fade_from_bottom">
                                     <div class="portfolio-item portfolio-full">
                                         <div class="portfolio-item-inner">
-                                            <a href="./assets/images/portfolio1.jpg" data-lightbox="example-1">
-                                                <img src="{% static 'images/portfolio1.jpg' %}" alt="Portfolio">
+                                            <a :href="project.pic" data-lightbox="example-1">
+                                                <img :src="project.pic" alt="Portfolio">
                                             </a>
-        
-                                            <ul class="portfolio-categories">
-                                                <li>
-                                                    <a href="">Figma</a>
-                                                </li>
-                                                <li>
-                                                    <a href="">Framer</a>
-                                                </li>
-                                                <li>
-                                                    <a href="">WordPress</a>
+                                           
+                                            <ul class="portfolio-categories"> 
+                                                <li v-for="tag in tagsArray( project.tag )" :key="tag">
+                                                    <a href="">[[ tag ]]</a>
                                                 </li>
                                             </ul>
                                         </div>
-                                        <h2><a href="">Bureau - Architecture Studio Website</a></h2>
+                                        <h2><a target="_blank" :href="project.link">[[ project.title ]]</a></h2>
                                     </div>
                                 </div>
         
-                                <div class="col-md-6 scroll-animation" data-animation="fade_from_left">
-                                    <div class="portfolio-item portfolio-half">
-                                        <div class="portfolio-item-inner">
-                                            <a href="./assets/images/portfolio2.jpg" data-lightbox="example-1">
-                                                <img src="{% static 'images/portfolio2.jpg' %}" alt="Portfolio">
-                                            </a>
-    
-                                            <img src="{% static 'images/portfolio2.jpg' %}" alt="Portfolio">
-        
-                                            <ul class="portfolio-categories">
-                                                <li>
-                                                    <a href="">WordPress</a>
-                                                </li>
-                                                <li>
-                                                    <a href="">Larevel/PHP</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <h2><a href="">Moonex WordPress Theme</a></h2>
-                                    </div>
-                                </div>
-        
-                                <div class="col-md-6 scroll-animation" data-animation="fade_from_right">
-                                    <div class="portfolio-item portfolio-half">
-                                        <div class="portfolio-item-inner">
-                                            <a href="./assets/images/portfolio3.jpg" data-lightbox="example-1">
-                                                <img src="{% static 'images/portfolio3.jpg' %}" alt="Portfolio">
-                                            </a>
-        
-                                            <ul class="portfolio-categories">
-                                                <li>
-                                                    <a href="">Figma</a>
-                                                </li>
-                                                <li>
-                                                    <a href="">Webflow</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <h2><a href="">Taskly Dashboard</a></h2>
-                                    </div>
-                                </div>
-        
-                                <div class="col-md-12 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="portfolio-item portfolio-half">
-                                        <div class="portfolio-item-inner">
-                                            <a href="./assets/images/portfolio4.jpg" data-lightbox="example-1">
-                                                <img src="{% static 'images/portfolio4.jpg' %}" alt="Portfolio">
-                                            </a>
-        
-                                            <ul class="portfolio-categories">
-                                                <li>
-                                                    <a href="">Figma</a>
-                                                </li>
-                                                <li>
-                                                    <a href="">React</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <h2><a href="">Hinterland - Real Estate Site Redesign</a></h2>
-                                    </div>
-                                </div>
-        
-                                <div class="col-md-12 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="portfolio-item portfolio-half">
-                                        <div class="portfolio-item-inner">
-                                            <a href="./assets/images/portfolio5.jpg" data-lightbox="example-1">
-                                                <img src="{% static 'images/portfolio5.jpg' %}" alt="Portfolio">
-                                            </a>
-        
-                                            <ul class="portfolio-categories">
-                                                <li>
-                                                    <a href="">Framer</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <h2><a href="">Lewis Portfolio Framer Template</a></h2>
-                                    </div>
-                                </div>
                             </div>
         
                         </div>
@@ -312,53 +212,20 @@
                             </div>
         
                             <div class="testimonial-slider-wrap scroll-animation" data-animation="fade_from_bottom">
+                                
                                 <div class="owl-carousel testimonial-slider owl-theme">
-                                    <div class="testimonial-item">
+                                    <div v-for="testimonial in testimonialList" :key="testimonial.id" class="testimonial-item">
+                                        
                                         <div class="testimonial-item-inner">
                                             <div class="author d-flex align-items-center">
-                                                <img src="{% static 'images/testimonial-1.jpg' %}" alt="testinomial">
+                                                <img :src="testimonial.client_pic" alt="testimonial.company_name">
                                                 <div class="right">
-                                                    <h3>Paublo Dybala</h3>
-                                                    <p class="designation">CEO of <span>IBM Global</span></p>
+                                                    <h3>[[ testimonial.client ]]</h3>
+                                                    <p class="designation">[[ testimonial.client_role ]] of <span>[[ testimonial.company_name ]]</span></p>
                                                 </div>
                                             </div>
-                                            <p>“Drake - A Developer with the creativity, professional and 
-                                                master of code. Much more than what i'm expect. 
-                                                High quality product &amp; flexiable price. Recommended!.”</p>
-        
-                                            <a href="" class="project-btn">Project</a>
-                                        </div>
-                                    </div>
-                                    <div class="testimonial-item">
-                                        <div class="testimonial-item-inner">
-                                            <div class="author d-flex align-items-center">
-                                                <img src="{% static 'images/testimonial-2.jpg' %}" alt="testinomial">
-                                                <div class="right">
-                                                    <h3>Christina Morillo</h3>
-                                                    <p class="designation">Product Management of <span>Invision App Inc</span></p>
-                                                </div>
-                                            </div>
-                                            <p>“Drake was a real pleasure to work with and we look 
-                                                forward to working with him again. He's definitely the kind of 
-                                                designer that you can trust with any project from A-Z.”</p>
-        
-                                            <a href="" class="project-btn">Project</a>
-                                        </div>
-                                    </div>
-                                    <div class="testimonial-item">
-                                        <div class="testimonial-item-inner">
-                                            <div class="author d-flex align-items-center">
-                                                <img src="{% static 'images/testimonial-3.jpg' %}" alt="testinomial">
-                                                <div class="right">
-                                                    <h3>Phil Foden</h3>
-                                                    <p class="designation">Director of <span>Envato LLC</span></p>
-                                                </div>
-                                            </div>
-                                            <p>“Extremely profressional and fast service!. Drake is a master
-                                                of code and he also very creative. We done 3 projects with
-                                                him and certain will continue.”</p>
-        
-                                            <a href="" class="project-btn">Project</a>
+                                            <p>“[[ testimonial.text ]]”</p>
+                                            <a href="" class="project-btn">[[ testimonial.company_name ]]</a>
                                         </div>
                                     </div>
                                 </div>
@@ -564,5 +431,6 @@
 
 {% block scripts %}
 <script src="{% static 'js/ajax-form.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/owl.carousel@2"></script>
 <script src="{% static 'js/portfolio/index.js' %}"> </script>
 {% endblock scripts %}

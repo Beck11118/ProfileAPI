@@ -83,40 +83,40 @@ $(function(){
 
 
 
-    if ($('.testimonial-slider').length) {
-        var testimonial = $('.testimonial-slider').owlCarousel({
-            items: 1,
-            margin: 30,
-            stagePadding: 0,
-            smartSpeed: 450,
-            autoHeight: true,
-            loop: false,
-            nav: false,
-            dots: false,
-            onInitialized  : counter, //When the plugin has initialized.
-            onTranslated : counter //When the translation of the stage has finished.
-        });
+    // if ($('.testimonial-slider').length) {
+    //     var testimonial = $('.testimonial-slider').owlCarousel({
+    //         items: 1,
+    //         margin: 30,
+    //         stagePadding: 0,
+    //         smartSpeed: 450,
+    //         autoHeight: true,
+    //         loop: false,
+    //         nav: false,
+    //         dots: false,
+    //         onInitialized  : counter, //When the plugin has initialized.
+    //         onTranslated : counter //When the translation of the stage has finished.
+    //     });
 
-        $('.testimonial-nav .next').on('click', function() {
-            testimonial.trigger('next.owl.carousel');
-        })
-        $('.testimonial-nav .prev').on('click', function() {
-            testimonial.trigger('prev.owl.carousel', [300]);
-        })
+    //     $('.testimonial-nav .next').on('click', function() {
+    //         testimonial.trigger('next.owl.carousel');
+    //     })
+    //     $('.testimonial-nav .prev').on('click', function() {
+    //         testimonial.trigger('prev.owl.carousel', [300]);
+    //     })
 
 
-        function counter(event) {
-            var element   = event.target;         // DOM element, in this example .owl-carousel
-            var items     = event.item.count;     // Number of items
-            var item      = event.item.index + 1;     // Position of the current item
+    //     function counter(event) {
+    //         var element   = event.target;         // DOM element, in this example .owl-carousel
+    //         var items     = event.item.count;     // Number of items
+    //         var item      = event.item.index + 1;     // Position of the current item
         
-        // it loop is true then reset counter from 1
-        if(item > items) {
-                item = item - items
-        }
-        $('#testimonial-slide-count').html("<span class='left'>"+item+"</span> / "+items)
-        }
-    }
+    //     // it loop is true then reset counter from 1
+    //     if(item > items) {
+    //             item = item - items
+    //     }
+    //     $('#testimonial-slide-count').html("<span class='left'>"+item+"</span> / "+items)
+    //     }
+    // }
 
     // function remove_is_active() {
     //     $(".menu .scroll-to").removeClass("active");

@@ -1,16 +1,20 @@
 from rest_framework import serializers
 
-from userprofile.models import ProfileItem, Education, Skill
+from userprofile.models import ProfileItem, Education, Skill, Testimonial, Project
 from django.contrib.auth.models import User
 
-def limit_profile_item_queryset(serializer, user):
-    # Limit the queryset for profile_item to the ones owned by the authenticated user
-    serializer.fields['profile_item'].queryset = ProfileItem.objects.filter(owner=user)
+class BaseProfileItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        abstract = True
+
+    def get_queryset(self):
+        user = self.context['request'].user
+        return ProfileItem.objects.filter(owner=user)
 
     
 
 
-class EducationSerializer(serializers.ModelSerializer):
+class EducationSerializer(BaseProfileItemSerializer):
     class Meta:
         model = Education
         fields = "__all__"
@@ -32,23 +36,12 @@ class EducationSerializer(serializers.ModelSerializer):
         if not value.strip():
             raise serializers.ValidationError("Institution name field cannot be empty.")
         return value
-    
-    def __init__(self, *args, **kwargs):
-        user = kwargs['context']['request'].user
-        super(EducationSerializer, self).__init__(*args, **kwargs)
 
-        limit_profile_item_queryset(self, user )
-
-class SkillSerializer(serializers.ModelSerializer):
+class SkillSerializer(BaseProfileItemSerializer):
     class Meta:
         model = Skill
         fields = "__all__"
         
-    
-    def __init__(self, *args, **kwargs):
-        user = kwargs['context']['request'].user
-        super(SkillSerializer, self).__init__(*args, **kwargs)
-        limit_profile_item_queryset(self, user)
 
 class ProfileItemSerializer(serializers.ModelSerializer):
     # educations = EducationSerializer(many=True, read_only=True)
@@ -68,4 +61,17 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+    
+
+class ProjectSerializer(BaseProfileItemSerializer):
+    class Meta:
+        model = Project
+        fields = "__all__"
+
+class TestimonialSerializer(BaseProfileItemSerializer):
+    class Meta:
+        model = Testimonial
+        fields = "__all__"
+
+
     

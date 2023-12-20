@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from userprofile.models import ProfileItem, Education, Skill
-from .serializers import ProfileItemSerializer, UserSerializer, EducationSerializer, SkillSerializer
+from userprofile.models import ProfileItem, Education, Skill, Project, Testimonial
+from .serializers import ProfileItemSerializer, UserSerializer, EducationSerializer, SkillSerializer, ProjectSerializer, TestimonialSerializer
 from .filters import ProfileItemFilter
 from .permissions import IsOwnerOrReadOnly
 
@@ -76,6 +76,29 @@ class SkillListCreateView(generics.ListCreateAPIView):
 class SkillDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
+
+
+#PROJECT
+class ProjectListCreateView(generics.ListCreateAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
+
+class ProjectDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
+
+#TESTIMONIAL
+class TestimonialListCreateView(generics.ListCreateAPIView):
+    queryset = Testimonial.objects.all()
+    serializer_class = TestimonialSerializer
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
+
+class TestimonialDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Testimonial.objects.all()
+    serializer_class = TestimonialSerializer
     permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
 
 
