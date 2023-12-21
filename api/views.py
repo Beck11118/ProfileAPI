@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from userprofile.models import ProfileItem, Education, Skill, Project, Testimonial, Service, Contact
-from .serializers import ProfileItemSerializer, UserSerializer, EducationSerializer, SkillSerializer, ProjectSerializer, TestimonialSerializer, ServiceSerializer, ContactSerializer
+from userprofile.models import ProfileItem, Education, Skill, Project, Testimonial, Service, Contact, Social
+from .serializers import ProfileItemSerializer, UserSerializer, EducationSerializer, SkillSerializer, ProjectSerializer, TestimonialSerializer, ServiceSerializer, ContactSerializer, SocialSerializer
 from .filters import ProfileItemFilter
 from .permissions import IsOwnerOrReadOnly
 
@@ -112,6 +112,18 @@ class ServiceListCreateView(generics.ListCreateAPIView):
 class ServiceDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
+
+
+#SOCIAL
+class SocialListCreateView(generics.ListCreateAPIView):
+    queryset = Social.objects.all()
+    serializer_class = SocialSerializer
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
+
+class SocialDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Social.objects.all()
+    serializer_class = SocialSerializer
     permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
 
 

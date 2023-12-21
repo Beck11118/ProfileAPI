@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from userprofile.models import ProfileItem, Education, Skill, Testimonial, Project, Service, Contact
+from userprofile.models import ProfileItem, Education, Skill, Testimonial, Project, Service, Contact, Social
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError as DjangoValidationError
@@ -11,9 +11,7 @@ class BaseProfileItemSerializer(serializers.ModelSerializer):
 
     def get_queryset(self):
         user = self.context['request'].user
-        return ProfileItem.objects.filter(owner=user)
-
-    
+        return ProfileItem.objects.filter(owner=user)   
 
 
 class EducationSerializer(BaseProfileItemSerializer):
@@ -78,6 +76,12 @@ class TestimonialSerializer(BaseProfileItemSerializer):
 class ServiceSerializer(BaseProfileItemSerializer):
     class Meta:
         model = Service
+        fields = "__all__"
+
+
+class SocialSerializer(BaseProfileItemSerializer):
+    class Meta:
+        model = Social
         fields = "__all__"
 
 

@@ -40,6 +40,8 @@ class Skill(models.Model):
     name = models.CharField(max_length=255)
     percentage = models.PositiveIntegerField(validators=[MaxValueValidator(100)])
     icon = models.CharField(max_length=255)
+    pic = ResizedImageField(upload_to='skill', default="skill_default.png")
+
 
     profile_item = models.ForeignKey(ProfileItem, on_delete=models.CASCADE, related_name='skills')    
     
@@ -120,4 +122,18 @@ class Contact(models.Model):
 
     def __str__(self):
         return f'{self.full_name} - {self.text[0:50]}...'
+    
+
+class Social(models.Model):
+    profile_item = models.ForeignKey(ProfileItem, on_delete = models.CASCADE, related_name = 'socials')
+
+    title = models.CharField(max_length=200)
+    icon = models.CharField(max_length=200, blank=True, null=True)
+    pic = ResizedImageField(upload_to='social', default="socail_default.png")
+    link = models.CharField(max_length = 250)
+
+    def __str__(self):
+        return self.title
+
+
     

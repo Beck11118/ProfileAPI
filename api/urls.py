@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import UserCreateView, ProfileItemListCreateView, ProfileItemDetailView, ProfileItemFavoriteView, EducationListCreateView, EducationDetailView, SkillListCreateView, SkillDetailView, ProjectListCreateView, ProjectDetailView, TestimonialListCreateView, TestimonialDetailView, ServiceListCreateView, ServiceDetailView, ContactListCreateView, ContactDetailView
+from .views import UserCreateView, ProfileItemListCreateView, ProfileItemDetailView, ProfileItemFavoriteView, EducationListCreateView, EducationDetailView, SkillListCreateView, SkillDetailView, ProjectListCreateView, ProjectDetailView, TestimonialListCreateView, TestimonialDetailView, ServiceListCreateView, ServiceDetailView, ContactListCreateView, ContactDetailView, SocialListCreateView, SocialDetailView
 
 app_name = 'api'
 urlpatterns = [
@@ -30,6 +30,11 @@ urlpatterns = [
     path('services/', ServiceListCreateView.as_view(), name='service-list'),
     path('services/<int:pk>/', ServiceDetailView.as_view(), name='service-detail'),
 
+
+    #Social
+    path('socials/', SocialListCreateView.as_view(), name='social-list'),
+    path('socials/<int:pk>/', SocialDetailView.as_view(), name='social-detail'),
+    
 
     #Contact
     path('contacts/', ContactListCreateView.as_view(), name='contact-list'),
