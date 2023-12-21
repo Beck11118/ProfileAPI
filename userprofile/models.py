@@ -15,10 +15,10 @@ class ProfileItem(models.Model):
     email = models.EmailField(blank=True, null=True)
     location = models.CharField(blank=True, null=True, max_length=200)
     intro_text = models.CharField(blank=True, null=True, max_length=200)
-    years_of_experience = models.PositiveIntegerField(blank=True, null=True)
-    completed_projects = models.PositiveIntegerField(blank=True, null=True)
-    countrywise_projects = models.PositiveIntegerField(blank=True, null=True)
-    logo = ResizedImageField(upload_to='logos', blank=True, null=True)
+    years_of_experience = models.PositiveIntegerField()
+    completed_projects = models.PositiveIntegerField()
+    countrywise_projects = models.PositiveIntegerField()
+    logo = ResizedImageField(upload_to='logos',)
 
     def __str__(self):
         if self.owner.first_name != '':

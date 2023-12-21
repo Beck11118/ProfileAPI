@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block headers %}
+<style>
+    .skill-inner h1 span {
+        font-size: 100px !important;
+        color: #fff;
+    }
+    .skill-inner img {
+        width: 60px !important;
+        color: #fff;
+    }
+</style>
+{% endblock %}
 
 
 {% block content %}
@@ -7,7 +19,7 @@
 <div id="index">
     <div class="left-sidebar">
         <div class="sidebar-header d-flex align-items-center justify-content-between">
-            <img height="50px"  :src="portfolioItem.logo" alt="Logo">
+            <img height="100px" :src="portfolioItem.logo" alt="Logo">
             <span class="designation">Crafting Code &amp; Developer</span>
         </div>
         <img class="me":src="portfolioItem.pic" alt="Me">
@@ -15,17 +27,8 @@
         <h2 class="address">[[ portfolioItem.location ]]</h2>
         <p class="copyright">© 2023 Beck. All Rights Reserved</p>
         <ul class="social-profile d-flex align-items-center flex-wrap justify-content-center">
-            <li>
-                <a href=""><i class="lab la-twitter"></i></a>
-            </li>
-            <li>
-                <a href=""><i class="lab la-dribbble"></i></a>
-            </li>
-            <li>
-                <a href=""><i class="lab la-instagram"></i></a>
-            </li>
-            <li>
-                <a href=""><i class="lab la-github"></i></a>
+            <li v-for="social in socialList" :key="social.id">
+                <a :href="social.link" target="_blank"><i :class="social.icon"></i></a>
             </li>
         </ul>
         <a href="#" class="theme-btn">
@@ -38,7 +41,7 @@
     
                 <div class="left-sidebar">
                     <div class="sidebar-header d-flex align-items-center justify-content-between">
-                        <img  height="50px"  :src="portfolioItem.logo" alt="Logo">
+                        <img  height="100px"  :src="portfolioItem.logo" alt="Logo">
                         <span class="designation">Crafting Code &amp; Developer</span>
                     </div>
                     <img class="me" :src="portfolioItem.pic" alt="Me">
@@ -46,17 +49,8 @@
                     <h2 class="address">[[ portfolioItem.location ]]</h2>
                     <p class="copyright">© 2023 Beck. All Rights Reserved</p>
                     <ul class="social-profile d-flex align-items-center flex-wrap justify-content-center">
-                        <li>
-                            <a href=""><i class="lab la-twitter"></i></a>
-                        </li>
-                        <li>
-                            <a href=""><i class="lab la-dribbble"></i></a>
-                        </li>
-                        <li>
-                            <a href=""><i class="lab la-instagram"></i></a>
-                        </li>
-                        <li>
-                            <a href=""><i class="lab la-github"></i></a>
+                        <li v-for="social in socialList" :key="social.id">
+                            <a :href="social.link" target="_blank"><i :class="social.icon"></i></a>
                         </li>
                     </ul>
                     <a href="#" class="theme-btn">
@@ -169,7 +163,9 @@
                                 <div v-for="skill in skillsList" :key="skill.id" class="col-md-3 scroll-animation" data-animation="fade_from_left">
                                     <div class="skill">
                                         <div class="skill-inner">
-                                            <img src="{% static 'images/figma.png' %}" :alt="skill.name">
+                                            
+                                            <h1 v-if="skill.icon != 'icon'" width="80px" font-size="100px"><span><i :class="skill.icon"></i></span></h1>
+                                            <img v-else :src="skill.pic" class="img-fluid" width="80%" :alt="skill.name">
                                             <h1 class="percent">[[ skill.percentage ]]%</h1>
                                         </div>
                                         <p class="name">[[ skill.name ]]</p>

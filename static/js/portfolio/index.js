@@ -7,6 +7,7 @@ let app = Vue.createApp({
             projectList: [],
             educationList: [],
             serviceList:[],
+            socialList:[],
             portfolioItem: {},
 
             // Client Inquire
@@ -30,7 +31,8 @@ let app = Vue.createApp({
         this.fetchProject()
         this.fetchTestimonial()
         this.fetchEducation()
-        this.fetchService()        
+        this.fetchService()   
+        this.fetchSocials()     
     },
     methods: {
 
@@ -40,6 +42,20 @@ let app = Vue.createApp({
             .then(data => {
                 this.skillsList = data.results
             console.log('this skill list: ', this.skillsList)
+            })
+            .catch(error => {
+            console.error('Error fetching data:', error);
+            this.message = 'Error fetching data';
+            });
+        },
+
+
+        fetchSocials(){
+            fetch('/api/socials/')
+            .then(response => response.json())
+            .then(data => {
+                this.socialList = data.results
+            console.log('this social list: ', this.socialList)
             })
             .catch(error => {
             console.error('Error fetching data:', error);
