@@ -12,6 +12,14 @@ class ProfileItem(models.Model):
     is_favorite = models.BooleanField(default=False)
     pic = ResizedImageField(upload_to = 'user_pic', default = 'user_pic/default.png')
 
+    email = models.EmailField(blank=True, null=True)
+    location = models.CharField(blank=True, null=True, max_length=200)
+    intro_text = models.CharField(blank=True, null=True, max_length=200)
+    years_of_experience = models.PositiveIntegerField(blank=True, null=True)
+    completed_projects = models.PositiveIntegerField(blank=True, null=True)
+    countrywise_projects = models.PositiveIntegerField(blank=True, null=True)
+    logo = ResizedImageField(upload_to='logos', blank=True, null=True)
+
     def __str__(self):
         if self.owner.first_name != '':
             return f'{self.owner.first_name} {self.owner.last_name}'
@@ -99,4 +107,17 @@ class Service(models.Model):
 
     def __str__(self):
         return self.title
+    
+
+class Contact(models.Model):
+    
+    full_name = models.CharField(max_length=200)
+    phone = models.IntegerField(blank=True, null=True)
+    email = models.EmailField()
+    subject = models.CharField(max_length = 200)
+    budget = models.PositiveIntegerField(blank=True, null=True)
+    text = models.TextField()
+
+    def __str__(self):
+        return f'{self.full_name} - {self.text[0:50]}...'
     

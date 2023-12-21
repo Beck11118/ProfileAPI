@@ -1,7 +1,9 @@
 from rest_framework import serializers
 
-from userprofile.models import ProfileItem, Education, Skill, Testimonial, Project, Service
+from userprofile.models import ProfileItem, Education, Skill, Testimonial, Project, Service, Contact
 from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
+from django.core.exceptions import ValidationError as DjangoValidationError
 
 class BaseProfileItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -77,6 +79,45 @@ class ServiceSerializer(BaseProfileItemSerializer):
     class Meta:
         model = Service
         fields = "__all__"
+
+
+class ContactSerializer(serializers.ModelSerializer):
+    # Phone number validation (optional)
+    phone_validator = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+    # Use CharField instead of IntegerField for the phone field
+    phone = serializers.CharField(required=False, allow_null=True)
+    # Email validation
+    email = serializers.EmailField()
+
+    # Budget validation (optional)
+    budget = serializers.IntegerField(min_value=0, required=False, allow_null=True)
+
+    class Meta:
+        model = Contact
+        fields = '__all__'
+
+    def validate_phone(self, value):
+        # Validate phone number using the RegexValidator
+        if value == '':
+            return None
+        if not value.startswith('+'):
+            raise serializers.ValidationError("Phone number must start with '+'.")
+
+        try:
+            # Try to validate phone number using the RegexValidator
+            self.phone_validator(value)
+        except DjangoValidationError as e:
+            # Catch the ValidationError from the RegexValidator and raise a new one with custom error message
+            raise serializers.ValidationError("Invalid phone number format. " + str(e))
+        
+        return value
+
+
+    def validate_budget(self, value):
+        # Validate budget to ensure it's a positive integer
+        if value is not None and value < 0:
+            raise serializers.ValidationError("Budget must be a positive integer.")
+        return value
 
 
     

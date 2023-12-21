@@ -8,6 +8,20 @@ let app = Vue.createApp({
             educationList: [],
             serviceList:[],
             portfolioItem: {},
+
+            // Client Inquire
+            formData: {
+                full_name: '',
+                phone: '',
+                email: '',
+                subject: '',
+                budget: null,
+                text: ''
+            },
+            message: null,
+            messageClass: null,
+            isBlock: false,
+            sending: false,
         }
     },
     mounted() {
@@ -139,7 +153,6 @@ let app = Vue.createApp({
             this.message = 'Error fetching data';
             });
         },
-
         // Project tags (string to list)
         tagsArray(tagString) {
             // Split the string and return an array
@@ -159,6 +172,97 @@ let app = Vue.createApp({
             console.error('Error fetching data:', error);
             this.message = 'Error fetching data';
             });
+        },
+
+
+        // Contact Form Submition
+        submitForm() {
+            this.sending = true;
+            if (!this.validateForm()) {
+                return;
+            }
+            // Send the data to your Django REST Framework endpoint
+
+            console.log('form data before fetch: ', this.formData)
+            fetch('/api/contacts/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(this.formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Contact created:', data);
+                if (data) {
+                    const budgetError = Array.isArray(data.budget) ? data.budget.join(', ') : '';
+                    const phoneError = Array.isArray(data.phone) ? data.phone.join(', ') : '';
+                
+                    if (budgetError || phoneError) {
+                        this.message = budgetError + phoneError;
+                        this.messageClass = 'alert-danger';
+                    }
+                } else {
+                    this.message = 'Contact created successfully.';
+                    this.messageClass = 'alert-success';
+                    this.resetForm()
+                }
+                this.showMessage();
+            })
+            .catch(error => {
+                console.error('There was an error creating the contact:', error);
+                this.message = 'Error creating contact.';
+                this.messageClass = 'alert-danger';
+                this.showMessage()
+            })
+            .finally(() => {
+                // Enable the send button after response (success or error)
+                this.sending = false;
+            });
+        },
+        validateForm() {
+            const { full_name, email, text, subject } = this.formData;
+            const messageRequired = document.getElementById('required-msg');
+            if (!full_name || !email || !text || !subject) {
+                this.message = 'Please fill in the required fields.';
+                this.messageClass = 'alert-danger';
+                messageRequired.classList.add('show');
+                this.showMessage();
+                return false;
+            }
+            messageRequired.classList.remove('show')
+            // Performing additional validations based on requirements
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                this.message = 'Please enter a valid email address.';
+                this.messageClass = 'alert-danger';
+                this.showMessage();
+                return false;
+            }
+
+            return true;
+        },
+        showMessage() {
+            messageDiv = $('.messenger-box-contact__msg'),
+            this.isBlock = true;
+            // Set a timeout to hide the message after a certain duration (e.g., 3000 milliseconds)
+            setTimeout(() => {
+                this.isBlock = false;
+                this.message = null;
+                this.messageClass = null;
+            }, 10000);
+        },
+        resetForm() {
+            // Reset form data to initial values or an empty object
+            this.formData = {
+                full_name: '',
+                phone: '',
+                email: '',
+                subject: '',
+                budget: null,
+                text: ''
+            };
         },
     }    
 });
