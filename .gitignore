@@ -44,3 +44,5 @@ static_collected/
 
 # media
 draft
+
+.env

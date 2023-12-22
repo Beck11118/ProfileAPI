@@ -11,8 +11,6 @@ urlpatterns = [
     path('api/', include('api.urls', namespace='api')),
     path('', include('userprofile.urls', namespace='userprofile')),
     path('api-auth/', include('rest_framework.urls')),
-]
-
+]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns.append(path("__debug__/", include(debug_toolbar.urls)))
