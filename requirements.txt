@@ -7,7 +7,7 @@ django-resized==1.0.2
 django-shortcuts==1.6
 djangorestframework==3.14.0
 Pillow==10.1.0
-psycopg2==2.9.9
+psycopg2-binary==2.9.9
 pytz==2023.3.post1
 sqlparse==0.4.4
 tzdata==2023.3
