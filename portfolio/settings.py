@@ -22,6 +22,8 @@ DEBUG = env.bool('DEBUG', default=False)  # Default to False if not set in produ
 # Default value for a database setting
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS')
+
 
 
 # Application definition
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'django_filters',
 
     "debug_toolbar",
+    'corsheaders',
 ]
 
 
@@ -70,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
 
     'django.middleware.common.CommonMiddleware',
 
@@ -115,10 +119,6 @@ DATABASES = {
         'PORT': env('DATABASE_PORT'),
     }
 }
-
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
 
 # DATABASES = {
 #     'default': {
