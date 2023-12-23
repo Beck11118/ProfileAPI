@@ -218,12 +218,12 @@ let app = Vue.createApp({
                     if (budgetError || phoneError) {
                         this.message = budgetError + phoneError;
                         this.messageClass = 'alert-danger';
+                    } else {
+                        this.message = 'Contact created successfully.';
+                        this.messageClass = 'alert-success';
+                        this.resetForm()
                     }
-                } else {
-                    this.message = 'Contact created successfully.';
-                    this.messageClass = 'alert-success';
-                    this.resetForm()
-                }
+                } 
                 this.showMessage();
             })
             .catch(error => {
