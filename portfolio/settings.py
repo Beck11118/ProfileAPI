@@ -109,8 +109,16 @@ DATABASES = {
     'default': {
         'ENGINE': env('DATABASE_ENGINE'),
         'NAME': env('DATABASE_NAME'),
+        'USER': env.str('DATABASE_USER'),
+        'PASSWORD':env.str('DATABASE_PASSWORD'),  
+        'HOST': env.str('DATABASE_HOST'),
+        'PORT': env('DATABASE_PORT'),
     }
 }
+
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # DATABASES = {
 #     'default': {
