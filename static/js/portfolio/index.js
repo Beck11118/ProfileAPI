@@ -41,10 +41,10 @@ let app = Vue.createApp({
             .then(response => response.json())
             .then(data => {
                 this.skillsList = data.results
-            console.log('this skill list: ', this.skillsList)
+            // console.log('this skill list: ', this.skillsList)
             })
             .catch(error => {
-            console.error('Error fetching data:', error);
+            // console.error('Error fetching data:', error);
             this.message = 'Error fetching data';
             });
         },
@@ -55,10 +55,10 @@ let app = Vue.createApp({
             .then(response => response.json())
             .then(data => {
                 this.socialList = data.results
-            console.log('this social list: ', this.socialList)
+            // console.log('this social list: ', this.socialList)
             })
             .catch(error => {
-            console.error('Error fetching data:', error);
+            // console.error('Error fetching data:', error);
             this.message = 'Error fetching data';
             });
         },
@@ -69,10 +69,10 @@ let app = Vue.createApp({
             .then(response => response.json())
             .then(data => {
                 this.portfolioItem = data.results[0]
-            console.log('this portfolio item: ', this.portfolioItem)
+            // console.log('this portfolio item: ', this.portfolioItem)
             })
             .catch(error => {
-            console.error('Error fetching data:', error);
+            // console.error('Error fetching data:', error);
             this.message = 'Error fetching data';
             });
         },
@@ -83,10 +83,10 @@ let app = Vue.createApp({
             .then(response => response.json())
             .then(data => {
                 this.educationList = data.results
-            console.log('this education list: ', this.educationList)
+            // console.log('this education list: ', this.educationList)
             })
             .catch(error => {
-            console.error('Error fetching data:', error);
+            // console.error('Error fetching data:', error);
             this.message = 'Error fetching data';
             });
         },
@@ -108,7 +108,7 @@ let app = Vue.createApp({
             .then(response => response.json())
             .then(data => {
                 this.testimonialList = data.results
-                console.log('this testimonial list: ', this.testimonialList)
+                // console.log('this testimonial list: ', this.testimonialList)
                 // Testimonial Owl Carusel
                 this.$nextTick(() => {
                     if ($('.testimonial-slider').length) {
@@ -138,7 +138,7 @@ let app = Vue.createApp({
                 
             })
             .catch(error => {
-            console.error('Error fetching data:', error);
+            // console.error('Error fetching data:', error);
             this.message = 'Error fetching data';
             });
         },
@@ -162,10 +162,10 @@ let app = Vue.createApp({
             .then(response => response.json())
             .then(data => {
                 this.projectList = data.results
-            console.log('this project list: ', this.projectList)
+            // console.log('this project list: ', this.projectList)
             })
             .catch(error => {
-            console.error('Error fetching data:', error);
+            // console.error('Error fetching data:', error);
             this.message = 'Error fetching data';
             });
         },
@@ -182,10 +182,10 @@ let app = Vue.createApp({
             .then(response => response.json())
             .then(data => {
                 this.serviceList = data.results
-            console.log('this service list: ', this.serviceList)
+            // console.log('this service list: ', this.serviceList)
             })
             .catch(error => {
-            console.error('Error fetching data:', error);
+            // console.error('Error fetching data:', error);
             this.message = 'Error fetching data';
             });
         },
@@ -199,7 +199,7 @@ let app = Vue.createApp({
             }
             // Send the data to your Django REST Framework endpoint
 
-            console.log('form data before fetch: ', this.formData)
+            // console.log('form data before fetch: ', this.formData)
             fetch('/api/contacts/', {
                 method: 'POST',
                 headers: {
@@ -210,7 +210,7 @@ let app = Vue.createApp({
             })
             .then(response => response.json())
             .then(data => {
-                console.log('Contact created:', data);
+                // console.log('Contact created:', data);
                 if (data) {
                     const budgetError = Array.isArray(data.budget) ? data.budget.join(', ') : '';
                     const phoneError = Array.isArray(data.phone) ? data.phone.join(', ') : '';
@@ -227,7 +227,7 @@ let app = Vue.createApp({
                 this.showMessage();
             })
             .catch(error => {
-                console.error('There was an error creating the contact:', error);
+                // console.error('There was an error creating the contact:', error);
                 this.message = 'Error creating contact.';
                 this.messageClass = 'alert-danger';
                 this.showMessage()

@@ -71,15 +71,12 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
 
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     'corsheaders.middleware.CorsMiddleware',
 
     'django.middleware.common.CommonMiddleware',
-
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
-    
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -87,7 +84,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'portfolio.urls'
-
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 TEMPLATES = [
@@ -161,14 +157,12 @@ USE_TZ = True
 
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [ BASE_DIR / 'static']
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-
-MEDIA_ROOT = env("RAILWAY_VOLUME_MOUNT_PATH")
+MEDIA_ROOT = env('RAILWAY_VOLUME_MOUNT_PATH', default=str(BASE_DIR / 'media'))
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -176,6 +170,6 @@ MEDIA_ROOT = env("RAILWAY_VOLUME_MOUNT_PATH")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
+if DEBUG:
+    INTERNAL_IPS = ['127.0.0.1']
+    MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
