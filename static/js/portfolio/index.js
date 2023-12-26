@@ -219,7 +219,7 @@ let app = Vue.createApp({
                         this.message = budgetError + phoneError;
                         this.messageClass = 'alert-danger';
                     } else {
-                        this.message = 'Contact created successfully.';
+                        this.message = 'Your message is sent successfully!';
                         this.messageClass = 'alert-success';
                         this.resetForm()
                     }
@@ -235,6 +235,8 @@ let app = Vue.createApp({
             .finally(() => {
                 // Enable the send button after response (success or error)
                 this.sending = false;
+                this.$refs.errorMessage.scrollIntoView({ behavior: 'smooth' });
+
             });
         },
         validateForm() {

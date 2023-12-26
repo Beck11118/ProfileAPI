@@ -269,7 +269,7 @@
                             <p id="required-msg">* Marked fields are required to fill.</p>
     
                             <form @submit.prevent="submitForm" class="contact-form scroll-animation" data-animation="fade_from_bottom" method="POST">
-                                <div :class="messageClass" class="alert messenger-box-contact__msg" :style="{ display: isBlock ? 'block' : 'none' }" role="alert">
+                                <div ref="errorMessage" :class="messageClass" class="alert messenger-box-contact__msg" :style="{ display: isBlock ? 'block' : 'none' }" role="alert">
                                     [[ message ]]
                                 </div>
                                 <div class="row">
