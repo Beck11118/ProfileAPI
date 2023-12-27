@@ -33,8 +33,8 @@ local_settings.py
 media/
 
 # Static files collected by Django
-staticfiles/
-static_collected/
+# staticfiles/
+# static_collected/
 
 # IDE and text editor files
 .vscode/
