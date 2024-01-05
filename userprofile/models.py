@@ -36,6 +36,17 @@ class Education(models.Model):
     def __str__(self):
         return f'{self.study} at {self.institution_name}'
     
+class WorkExperience(models.Model):
+    start_date = models.DateField()
+    end_date= models.DateField(null=True, blank=True)
+    job_title = models.CharField(max_length=255)
+    company_name = models.CharField(max_length=255)
+
+    profile_item = models.ForeignKey(ProfileItem, on_delete=models.CASCADE, related_name='work_experiences')    
+
+    def __str__(self):
+        return f'{self.job_title} at {self.company_name}'
+
 class Skill(models.Model):
     name = models.CharField(max_length=255)
     percentage = models.PositiveIntegerField(validators=[MaxValueValidator(100)])

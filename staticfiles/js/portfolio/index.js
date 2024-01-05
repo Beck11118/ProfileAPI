@@ -6,6 +6,7 @@ let app = Vue.createApp({
             testimonialList: [],
             projectList: [],
             educationList: [],
+            workExperienceList: [],
             serviceList:[],
             socialList:[],
             portfolioItem: {},
@@ -31,6 +32,7 @@ let app = Vue.createApp({
         this.fetchProject()
         this.fetchTestimonial()
         this.fetchEducation()
+        this.fetchWorkExperience()
         this.fetchService()   
         this.fetchSocials()     
     },
@@ -79,11 +81,35 @@ let app = Vue.createApp({
 
 
         fetchEducation(){
-            fetch('/api/educations/')
+            fetch('/api/educations/?o=-start_date')
             .then(response => response.json())
             .then(data => {
                 this.educationList = data.results
             // console.log('this education list: ', this.educationList)
+            })
+            .catch(error => {
+            // console.error('Error fetching data:', error);
+            this.message = 'Error fetching data';
+            });
+        },
+        // Date Format
+        dateFormat(v){
+            var date = new Date(v);
+            var options = {
+                year: "numeric",
+                month: "short",
+                day: "numeric"
+            };
+            const cur = date.toLocaleDateString( "en", options,  )
+            return cur
+        },
+
+        fetchWorkExperience(){
+            fetch('/api/work-experiences/?o=-start_date')
+            .then(response => response.json())
+            .then(data => {
+                this.workExperienceList = data.results
+            // console.log('this work experinece list: ', this.workExperienceList)
             })
             .catch(error => {
             // console.error('Error fetching data:', error);

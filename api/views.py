@@ -2,9 +2,9 @@ from django.shortcuts import render
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from userprofile.models import ProfileItem, Education, Skill, Project, Testimonial, Service, Contact, Social
-from .serializers import ProfileItemSerializer, UserSerializer, EducationSerializer, SkillSerializer, ProjectSerializer, TestimonialSerializer, ServiceSerializer, ContactSerializer, SocialSerializer
-from .filters import ProfileItemFilter
+from userprofile.models import ProfileItem, Education, Skill, Project, Testimonial, Service, Contact, Social, WorkExperience
+from .serializers import ProfileItemSerializer, UserSerializer, EducationSerializer, SkillSerializer, ProjectSerializer, TestimonialSerializer, ServiceSerializer, ContactSerializer, SocialSerializer, WorkExperienceSerializer
+from .filters import ProfileItemFilter, WorkExperienceFilter, EducationFilter
 from .permissions import IsOwnerOrReadOnly
 
 #PAGINATION AND FILTERING
@@ -60,10 +60,24 @@ class EducationListCreateView(generics.ListCreateAPIView):
     queryset = Education.objects.all()
     serializer_class = EducationSerializer
     permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
+    filterset_class = EducationFilter
 
 class EducationDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Education.objects.all()
     serializer_class = EducationSerializer
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
+
+
+#WORK EXPERIENCE
+class WorkExperienceListCreateView(generics.ListCreateAPIView):
+    queryset = WorkExperience.objects.all()
+    serializer_class = WorkExperienceSerializer
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
+    filterset_class = WorkExperienceFilter
+
+class WorkExperienceDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = WorkExperience.objects.all()
+    serializer_class = WorkExperienceSerializer
     permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
 
 

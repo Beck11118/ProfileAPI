@@ -81,7 +81,7 @@ let app = Vue.createApp({
 
 
         fetchEducation(){
-            fetch('/api/educations/?o=-start_date')
+            fetch('/api/educations/')
             .then(response => response.json())
             .then(data => {
                 this.educationList = data.results
@@ -105,11 +105,11 @@ let app = Vue.createApp({
         },
 
         fetchWorkExperience(){
-            fetch('/api/work-experiences/?o=-start_date')
+            fetch('/api/work-experiences/')
             .then(response => response.json())
             .then(data => {
                 this.workExperienceList = data.results
-            // console.log('this work experinece list: ', this.workExperienceList)
+            // console.log('this education list: ', this.educationList)
             })
             .catch(error => {
             // console.error('Error fetching data:', error);

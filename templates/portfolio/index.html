@@ -110,7 +110,21 @@
                                 <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
                                     <i class="las la-briefcase"></i> Resume
                                 </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">Education &amp; <span>Experience</span></h1>
+                                <h1 class="scroll-animation" data-animation="fade_from_bottom">Experience &amp; <span>Development</span></h1>
+                            </div>
+        
+                            <div class="resume-timeline">
+                                <div v-for="experience in workExperienceList" :key="experience.id" class="item scroll-animation" data-animation="fade_from_right">
+                                    <span class="date">[[ dateFormat( experience.start_date ) ]] - [[ dateFormat( experience.end_date ) ]]</span>
+                                    <h2>[[ experience.job_title ]]</h2>
+                                    <p>[[ experience.company_name ]]</p>
+                                </div>
+                            </div>
+        
+                        </div>
+                        <div class="resume-content content-width mt-4 pt-4">
+                            <div class="section-header">
+                                <h1 class="scroll-animation" data-animation="fade_from_bottom">Education &amp; <span>Knowledge</span></h1>
                             </div>
         
                             <div class="resume-timeline">
